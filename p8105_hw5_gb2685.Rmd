@@ -111,5 +111,38 @@ homicide_df =
   nest(data = resolved)
 ```
 
+## Problem 2 
+
+*Creating a tidy dataframe:*
+
+```{r}
+
+files = list.files(path = "Prob2data", full.names = TRUE)
+
+long_study = files  %>%
+  set_names() %>%
+  map_dfr(read_csv, .id = "file_name")%>%
+  separate(file_name, c("dir","arm","subject_id","ext"))%>%
+  select(-c(dir,ext))%>%
+  pivot_longer(week_1:week_8, 
+               names_to= "week_number", 
+               values_to="observation") 
+
+long_study
+```
+
+*Making a spaghetti plot:* 
+
+```{r}
+long_study %>%
+ggplot( aes(week_number, observation, group = paste(subject_id, arm), color = arm)) + geom_line() +
+labs (
+  x = "week number",
+  y = "values"
+)
+```
+
+
+
 
 
