@@ -140,7 +140,7 @@ labs (
   y = "values"
 )
 ```
-Observation constant on control arm and increasing on the experimental arm
+Observations appear to be constant or in the same range of values for the control arm while the observations seem to be increasing on the experimental arm over time.
 
 ## Problem 3 
 
