@@ -136,8 +136,8 @@ long_study
 long_study %>%
 ggplot( aes(week_number, observation, group = paste(subject_id, arm), color = arm)) + geom_line() +
 labs (
-  x = "week number",
-  y = "values"
+  x = "Number of week",
+  y = "Observations"
 )
 ```
 Observations appear to be constant or in the same range of values for the control arm while the observations seem to be increasing on the experimental arm over time.
