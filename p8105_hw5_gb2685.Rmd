@@ -140,6 +140,7 @@ labs (
   y = "values"
 )
 ```
+Observation constant on control arm and increasing on the experimental arm
 
 ## Problem 3 
 
@@ -208,6 +209,11 @@ ggplot(
 
 ```
 
+*Association between effect size and power:* 
+As the effect size increases (difference between true mu and 0), the power goes on increasing. This suggests that the power is directly proportional to the effect size when all else (alpha and sample size) is constant. 
+
+
+*Making a plot of average estimate of mu versus true value of mu and a second plot the average estimate of mu only in samples for which the null was rejected versus the true value of mu on the x axis.*
 
 ```{r}
 sim_results %>%
@@ -221,8 +227,26 @@ summarize(
   avg = mean(estimate),
   avg_null = mean(estimate[conclusion=="reject null"])
 )%>%
-ggplot(aes(x = factor(mu) )) + geom_point(aes(y= avg), color = "red")  + geom_point(aes(y= avg_null), color = "blue") 
+ggplot(aes(x = factor(mu) )) + 
+  geom_point(aes(y= avg, color = "red"))  + 
+  geom_line(aes(y = avg, color = "red"), group = 1) + 
+  
+  geom_point(aes(y= avg_null,  color = "blue")) +
+  geom_line(aes(y=avg_null,  color = "blue"), group =1) + 
+  labs(title = "Overlay plot of average estimates versus true values of mean",
+       x = "True values of mean", 
+       y = "Average estimates")+
+  scale_color_discrete(name = "Avg estimates", labels = c("Average estimates of mu where null was rejected", "Average estimates of mu for all"))+
+  theme(legend.position="bottom")
   
 ```
+
+Th red plot shows Average estimate of mu only for samples where null was rejected. The blue plot shows average estimate of mu for all samples
+
+The sample average estimate mu only in tests for which null was rejected is not equal to the true value of mu on the x axis for the means 0 to 3. From 4 onwards, the average estimate mu only in tests for which null was rejected is equal to the true value of mu on the x axis. This is because, when power increases, the deviation of the estimates from true mean reduces. The power as we saw was increasing with increasing mu (i.e. increasing effect size). 
+
+
+
+
 
 
